@@ -1,20 +1,19 @@
 #!/usr/bin/env python3
-"""Loading Screen Gold: A Tip in 200 Characters (make.fun).
+"""Loading Screen Gold: A Tip in 200 Characters — a make.fun one-line entry. The program writes the entry text to /output/entry.txt, where the competition's sealed scorer reads it."""
 
-Writes the entry -- one sharp, funny loading-screen tip for stressed developers and ai coding agents --
-to /output/entry.txt, where the sealed scorer reads it.
-"""
+from pathlib import Path
 
-import os
+ENTRY = "Tip: while this loads, remember that somewhere a developer is also waiting for a build, staring at the same spinner, questioning the same life choices."
 
-TEXT = "Tip: if the build has been ‘almost done’ for ten minutes, it is not almost done — go drink water and stop watching it."
+OUTPUT = Path("/output/entry.txt")
 
 
-def main():
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(TEXT)
+def write_entry() -> None:
+    text = ENTRY.strip()
+    assert text, "entry text must not be blank"
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT.write_text(text, encoding="utf-8")
 
 
 if __name__ == "__main__":
-    main()
+    write_entry()
